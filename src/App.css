@@ -52,6 +52,43 @@
   color: white;
 }
 
+.user-address {
+  color: white;
+  margin: 10px;
+}
+
+.rating-bar {
+   display : flex;
+  align-items : center;
+  justify-content : center;
+  border-radius: 0 0 10px 10px;
+  opacity: 0.7;
+  color: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  background: black;
+}
+
+.address-bar {
+  border-radius: 10px 10px 0 0;
+  opacity: 0.7;
+  color: white;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  background: black;
+}
+
+
+.gif-item .upvote {
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  cursor: pointer;
+}
+
 .connect-wallet-button {
   background: -webkit-linear-gradient(left, #60c657, #35aee2);
   background-size: 200% 200%;

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import twitterLogo from './assets/twitter-logo.svg';
+import thumbUpIcon from './assets/thumbs-up-128.png';
 import idl from './idl.json';
 
 import { Connection, PublicKey, clusterApiUrl } from '@solana/web3.js';
@@ -142,6 +143,24 @@ const App = () => {
     }
   };
 
+  const upvoteGif = async (gifIndex=0) => {
+    console.log(`UpvoteGif called vith value ${gifIndex}`)
+    try {
+      const provider = getProvider();
+      const program = new Program(idl, programID, provider);
+
+      await program.rpc.upvoteGif(gifIndex, {
+        accounts: {
+          baseAccount: baseAccount.publicKey,
+        },
+      });
+      console.log("Vote succesfully sent")
+      await getGifList();
+    } catch (error) {
+      console.log("Error sending GIF:", error)
+    }
+  }
+
   const renderConnectedContainer = () => {
     if (gifList === null) {
       return (
@@ -171,9 +190,18 @@ const App = () => {
         </form>
         <div className="gif-grid">
           {gifList.map((item, index) => (
-            <div className="gif-item" key={index}>
-              <img src={item.gifLink} />
-            </div>
+            <>
+              <div className="gif-item" key={index}>
+                <img src={item.gifLink} />
+                <div className="address-bar">
+                  <div className="user-address">{item.userAddress.toString()}</div>
+                </div>
+                <div className="rating-bar">
+                  <span><img alt="Like button" className="upvote" src={thumbUpIcon} onClick={() => upvoteGif(index)}/></span>
+                  <span>{item.votes}</span>
+                </div>
+              </div>
+            </>
           ))}
         </div>
       </div>
